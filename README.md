@@ -20,4 +20,5 @@
             2)add line at last: export const graphqlHandler = server.createHandler();
             3)Comment server.listen line
     
+=>git remote graphnode
 	
