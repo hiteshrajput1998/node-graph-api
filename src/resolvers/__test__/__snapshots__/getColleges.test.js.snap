@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Resolver getColleges2 1`] = `
+Object {
+  "address": Any<String>,
+  "collegeName": Any<String>,
+  "id": "6067055a117b8b2c94ad17c0",
+}
+`;

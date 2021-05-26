@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GraphQuery CRUD getCollege 1`] = `
+Object {
+  "getcolleges": Array [
+    Object {
+      "address": "UniversityArea",
+      "id": "60489cc69deb2428b83cd28c",
+      "name": "KS2",
+    },
+    Object {
+      "address": "UniversityArea",
+      "id": "6049ba2aab290b2ab87f893c",
+      "name": "HRR",
+    },
+    Object {
+      "address": "University",
+      "id": "604a05d0daea693d703118fc",
+      "name": "MS Uni",
+    },
+    Object {
+      "address": "Maninagar",
+      "id": "604b215ffabc4d56a06e408b",
+      "name": "HRR",
+    },
+    Object {
+      "address": "Navrangpura",
+      "id": "604b237c439f464ea48d19e7",
+      "name": "KS2",
+    },
+  ],
+}
+`;
+
+exports[`GraphQuery CRUD getColleges emptyObject 1`] = `
+Object {
+  "getcolleges": Array [
+    Object {
+      "address": "UniversityArea",
+      "id": "60489cc69deb2428b83cd28c",
+      "name": "KS2",
+    },
+    Object {
+      "address": "UniversityArea",
+      "id": "6049ba2aab290b2ab87f893c",
+      "name": "HRR",
+    },
+    Object {
+      "address": "University",
+      "id": "604a05d0daea693d703118fc",
+      "name": "MS Uni",
+    },
+    Object {
+      "address": "Maninagar",
+      "id": "604b215ffabc4d56a06e408b",
+      "name": "HRR",
+    },
+    Object {
+      "address": "Navrangpura",
+      "id": "604b237c439f464ea48d19e7",
+      "name": "KS2",
+    },
+  ],
+}
+`;
