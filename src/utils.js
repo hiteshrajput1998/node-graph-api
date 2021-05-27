@@ -124,4 +124,8 @@ export {
     maskOption
 };
 
+<<<<<<< HEAD
 // test-1 utils
+=======
+// test-2 utils
+>>>>>>> 0df181375945f68801e070149a6ad7c9272437ba
