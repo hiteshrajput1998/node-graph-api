@@ -15,3 +15,5 @@ export const DOCUMENT_DELETED = 'document(s) deleted!';
 
 //UserLogin
 export const USER_NOT_FOUND = 'User not found!';
+
+// test-2 constant
