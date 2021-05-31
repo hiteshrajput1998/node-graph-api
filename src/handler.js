@@ -17,9 +17,10 @@ const { schema } = mySchema;
 
 const server = new ApolloServer({
     schema,
-    context: ({ req }) => ({
-        authScope: req.headers.authorization
-    }),
+    context: ({ req, res }) => {
+        //authScope: req.headers.authorization,
+        res.header('Strict-Transport-Security', 'max-age=10368000; includeSubDomains')  // 120days
+    },
     //plugins: [responseCachePlugin()],
     formatError: function (err) {
         console.log(`err.message: ${JSON.stringify(err)}`);
