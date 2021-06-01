@@ -38,7 +38,9 @@ const REGISTER_USER_SCHEMA = Joi.object().keys({
     userName: Joi.string().min(3),
     password: Joi.string(),
     email: Joi.string(),
-    created: Joi.string()
+    created: Joi.string(),
+    firstName: Joi.string(),
+    lastName: Joi.string()
 });
 
 function validateRequestData(model, schema) {
@@ -70,6 +72,7 @@ function buildClientError(errDetails = []) {
 }
 
 function transformData(data) {
+
     return _.map(data, item => ({
         id: item._id,
         collegeName: item.collegeName,
@@ -79,11 +82,14 @@ function transformData(data) {
 }
 
 function transformUserData(data) {
+    
     return _.map(data, item => ({
         id: item._id,
         userName: item.userName,
         email: item.email,
-        created: item.created
+        created: item.created,
+        firstName: item.firstName,
+        lastName: item.lastName
     })
     );
 }

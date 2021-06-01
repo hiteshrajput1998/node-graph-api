@@ -16,5 +16,8 @@ export const DOCUMENT_DELETED = 'document(s) deleted!';
 //UserLogin
 export const USER_NOT_FOUND = 'User not found!';
 
+//UserRegister
+export const REGISTERED_SUCCESSFULLY = 'Registered successfully!';
+
 // node-1 constant
 
