@@ -28,7 +28,7 @@ export default async (_, { id }, ctx, info) => {
         let finalResponse = transformUserData([user]);
         logger.log(`finalResponse: ${logger.stringify(finalResponse)}`);
 
-        return finalResponse;
+        return finalResponse[0];
     } catch (error) {
         throw new GraphError(error);
     }

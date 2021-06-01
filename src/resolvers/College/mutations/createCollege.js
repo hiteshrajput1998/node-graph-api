@@ -1,4 +1,4 @@
-import { validateRequestData, CREATE_COLLEGE_SCHEMA } from '../../../utils';
+import { validateRequestData, CREATE_COLLEGE_SCHEMA, transformData } from '../../../utils';
 import { College } from '../../../models/';
 import GraphError from '../../../graphError';
 import { CREATED_SUCCESSFULLY } from '../../../constant';
@@ -13,12 +13,15 @@ export default async (_, { input }, context) => {
 
     try {
 
-        let newCollege = await College.create(input);
-        logger.log(`+createCollege: ${logger.stringify(newCollege)}`);
+        let response = await College.create(input);
+        logger.log(`+createCollege: ${logger.stringify(response)}`);
+
+        // let finalResponse = transformData([response]);
+        // logger.log(`finalCollege response: ${logger.stringify(finalResponse)}`);
 
         return {
             message: CREATED_SUCCESSFULLY,
-            data: newCollege
+            data: response
         };
     }
     catch (e) {

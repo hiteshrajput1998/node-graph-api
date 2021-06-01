@@ -2,10 +2,12 @@ import { gql } from 'apollo-server';
 
 export default gql`
     type User{
-        id: String
-        userName: String
-        email: String
         created: String
+        email: String
+        firstName: String
+        id: String
+        lastName: String
+        userName: String
     }
     type Token{
         token: String
@@ -15,10 +17,12 @@ export default gql`
         data: User
     }
     input RegisterInput {
-        userName: String
-        password: String
-        email: String
         created: String
+        email: String
+        firstName: String
+        lastName: String
+        password: String
+        userName: String
     }
     type Mutation{
         loginUser(data2: String!): Token
@@ -26,6 +30,6 @@ export default gql`
     }
     type Query{
         getUsers: [User]
-        getUser(id: String!): [User]
+        getUser(id: String!): User
     }
 `;
