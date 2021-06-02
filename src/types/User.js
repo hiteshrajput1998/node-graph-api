@@ -1,13 +1,17 @@
 import { gql } from 'apollo-server';
 
+const userField = `
+    created: String
+    email: String
+    firstName: String
+    lastName: String
+    userName: String
+`;
+
 export default gql`
     type User{
-        created: String
-        email: String
-        firstName: String
+        ${userField}
         id: String
-        lastName: String
-        userName: String
     }
     type Token{
         token: String
@@ -16,17 +20,21 @@ export default gql`
         message: String
         data: User
     }
+    type EmailResponse{
+        message: String,
+        data: String
+    }
     input RegisterInput {
-        created: String
-        email: String
-        firstName: String
-        lastName: String
+        ${userField}
         password: String
-        userName: String
+    }
+    input EmailInput{
+        ${userField}
     }
     type Mutation{
         loginUser(data2: String!): Token
         registerUser(inputRegister: RegisterInput): Response
+        sendEmail(input: EmailInput!): EmailResponse
     }
     type Query{
         getUsers: [User]

@@ -43,6 +43,14 @@ const REGISTER_USER_SCHEMA = Joi.object().keys({
     lastName: Joi.string()
 });
 
+const EMAIL_INPUT_SCHEMA = Joi.object().keys({
+    created: Joi.string().required(),
+    email: Joi.string().email().required(),
+    firstName: Joi.string().regex(/^[a-zA-Z]*$/).min(1).max(15).required(),
+    lastName: Joi.string().regex(/^[a-zA-Z]*$/).min(1).max(15).required(),
+    userName: Joi.string().min(1).max(20).required()
+});
+
 function validateRequestData(model, schema) {
 
     const validateResult = schema.validate(model, { abortEarly: false });
@@ -124,11 +132,9 @@ export {
     VALIDATE_IDS_SCHEMA,
     LOGIN_USER_SCHEMA,
     REGISTER_USER_SCHEMA,
+    EMAIL_INPUT_SCHEMA,
     validateRequestData,
     transformData,
     transformUserData,
     maskOption
 };
-
-// test-1 utils
-// test-2 utils
