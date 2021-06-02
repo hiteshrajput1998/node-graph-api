@@ -1,18 +1,20 @@
 import { gql } from 'apollo-server';
 
+const collegeField = `
+    collegeName: String
+    address: String
+`;
+
 export default gql`
     type College{
         id: String
-        collegeName: String
-        address: String
+        ${collegeField}
     }
     input CreateCollegeInput{
-        collegeName: String
-        address: String
+        ${collegeField}
     }
     input UpdateCollegeInput{
-        collegeName: String
-        address: String
+        ${collegeField}
     }
     type Status{
         message: String
