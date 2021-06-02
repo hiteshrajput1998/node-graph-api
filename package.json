@@ -33,6 +33,7 @@
     "maskdata": "^1.1.4",
     "mongodb-client-encryption": "^1.2.3",
     "mongoose": "^5.11.19",
+    "nodemailer": "^6.6.1",
     "path": "^0.12.7",
     "pino": "^6.11.3"
   },
