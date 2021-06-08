@@ -1,54 +1,52 @@
 /* eslint-disable no-undef */
 /*eslint linebreak-style: ["error", "windows"]*/
-import { ApolloServer } from 'apollo-server';
+import express from 'express';
+import { ApolloServer } from 'apollo-server-express';
+import helmet from 'helmet';
 import responseCachePlugin from 'apollo-server-plugin-response-cache';
 import { mySchema } from './application';
 import { createTestClient } from 'apollo-server-testing';
 import db from './config/db';
 import Logger from './logger';
+import { Promise } from 'mongoose';
 require('dotenv').config();
 
 const logger = new Logger('Handler', 'handler.js');
 
-db();
+async function startApolloServer() {
+    await db();
 
-const { schema } = mySchema;
-// const schema = mySchema.createSchemaForApollo();
+    const { schema } = mySchema;
+    // const schema = mySchema.createSchemaForApollo();
+    const port = process.env.GRAPHQL_APP_PORT || 4000;
 
-const server = new ApolloServer({
-    schema,
-    context: ({ req, res }) => {
-        //authScope: req.headers.authorization,
-        res.header('Strict-Transport-Security', 'max-age=10368000; includeSubDomains')  // 120days
-    },
-    //plugins: [responseCachePlugin()],
-    formatError: function (err) {
-        console.log(`err.message: ${JSON.stringify(err)}`);
-        return err;
-    },
-    playground: true,
-    introspection: true,
-});
+    const server = new ApolloServer({
+        schema,
+        context: ({ req, res }) => {
+            //authScope: req.headers.authorization,
+            res.header('Strict-Transport-Security', 'max-age=10368000; includeSubDomains')  // 120days
+        },
+        //plugins: [responseCachePlugin()],
+        formatError: function (err) {
+            console.log(`err.message: ${JSON.stringify(err)}`);
+            return err;
+        },
+        playground: true,
+        introspection: true,
+    });
 
-// const server = new ApolloServer({
-//     typeDefs,
-//     resolvers: merge(College, User),
-//     context: ({ req }) => ({
-//         authScope: req.headers.authorization
-//     }),
-//     formatError: (err) => {
-//         logger.error(logger.stringify(err, null, 2));
-//         if (err.message.startsWith(DATABASE_ERROR)) {
-//             return new Error(INTERNAL_SERVER_ERROR);
-//         }
-//         return err;
-//     }
-// });
+    const app = express();
 
-server.listen({ port: process.env.GRAPHQL_APP_PORT || 4000 }).then(({ url }) => {
-    logger.log(`🚀 Server ready at ${logger.stringify(url, null, 2)}`);
-});
+    app.use(helmet());
+    server.applyMiddleware({ app });
 
-const testClient = createTestClient(server);
+    await new Promise(resolve => app.listen({ port: port }, resolve));
+    logger.log(`🚀 Server ready at http://localhost:${port}${server.graphqlPath}`);
 
-export default testClient;
+    return { server, app };
+}
+
+startApolloServer();
+// const testClient = createTestClient(server);
+
+// export default testClient;
