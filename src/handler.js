@@ -25,12 +25,12 @@ async function startApolloServer() {
     const server = new ApolloServer({
         schema,
         context: ({ req, res }) => {
-          const query = req.query.query || req.body.query || '';
-          logger.log(`query: ${logger.stringify(query)} length: ${query.length}`);
+            const query = req.query.query || req.body.query || '';
+            logger.log(`query: ${logger.stringify(query)} length: ${query.length}`);
 
-          if (query.length > QUERY_SIZE_ALLOWED) {
-            throw new Error('Query too large');
-          }
+            if (query.length > QUERY_SIZE_ALLOWED) {
+                throw new Error('Query too large');
+            }
             //authScope: req.headers.authorization,
             res.header('Strict-Transport-Security', 'max-age=10368000; includeSubDomains')  // 120days
         },
