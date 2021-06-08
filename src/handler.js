@@ -19,10 +19,18 @@ async function startApolloServer() {
     const { schema } = mySchema;
     // const schema = mySchema.createSchemaForApollo();
     const port = process.env.GRAPHQL_APP_PORT || 4000;
+    const QUERY_SIZE_ALLOWED = process.env.QUERY_SIZE_ALLOWED || 300;
+
 
     const server = new ApolloServer({
         schema,
         context: ({ req, res }) => {
+          const query = req.query.query || req.body.query || '';
+          logger.log(`query: ${logger.stringify(query)} length: ${query.length}`);
+
+          if (query.length > QUERY_SIZE_ALLOWED) {
+            throw new Error('Query too large');
+          }
             //authScope: req.headers.authorization,
             res.header('Strict-Transport-Security', 'max-age=10368000; includeSubDomains')  // 120days
         },
@@ -50,3 +58,4 @@ startApolloServer();
 // const testClient = createTestClient(server);
 
 // export default testClient;
+
