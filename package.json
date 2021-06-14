@@ -22,6 +22,8 @@
     "apollo-server-lambda": "^2.23.0",
     "apollo-server-plugin-response-cache": "^0.7.0",
     "apollo-server-testing": "^2.21.1",
+    "bunyan": "^1.8.15",
+    "bunyan-format": "^0.2.1",
     "crypto-js": "^4.0.0",
     "graphql": "^15.5.0",
     "graphql-middleware": "^6.0.10",

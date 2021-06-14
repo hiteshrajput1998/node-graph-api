@@ -2,11 +2,13 @@ import GraphError from '../../../graphError';
 import Logger from '../../../logger';
 import { College } from '../../../models/';
 import { transformData } from '../../../utils';
+import { logger2 } from '../../../bunyanLogger';
 
 const logger = new Logger('College', 'getColleges.js');
 
 export default async (parent, context, ctx, info) => {
     logger.log(`Auth: ${logger.stringify(context)}`);
+    logger2.info(`Auth: ${logger.stringify(context)}`);
 
     //info.cacheControl.setCacheHint({ maxAge: 10 });
 
@@ -14,12 +16,15 @@ export default async (parent, context, ctx, info) => {
 
         let response = await College.find();
         logger.log(`response: ${logger.stringify(response)}`);
+        logger2.info(`response: ${logger.stringify(response)}`);
 
         let finalResponse = transformData(response);
         logger.log(`finalResponse: ${logger.stringify(finalResponse)}`);
+        logger2.info(`finalResponse: ${logger.stringify(finalResponse)}`);
 
         return finalResponse;
     } catch (error) {
+        logger2.error(error);
         throw new GraphError(error.message);
     }
 };
