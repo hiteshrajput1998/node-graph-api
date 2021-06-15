@@ -9,3 +9,7 @@ node_modules/
 
 # The file containing environment variables 
 .env
+
+#Ignore logs
+**/logs
+logs/
