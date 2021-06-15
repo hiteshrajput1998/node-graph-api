@@ -21,7 +21,7 @@ export default async (_, { otp, email }, ctx, info) => {
         }
 
         if (otpData.otp !== otp) {
-            return 'Otp does not match';
+            throw new GraphError('Otp does not match');
         }
 
         return 'Otp matched';
