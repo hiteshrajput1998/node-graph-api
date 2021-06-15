@@ -28,6 +28,10 @@ const VALIDATE_IDS_SCHEMA = Joi.object().keys({
         ).unique().required()
 });
 
+const VALIDATE_OTP_SCHEMA = Joi.object().keys({
+    otp: Joi.string().length(6).pattern(/^[0-9]+$/).required(),
+    email: Joi.string().required()
+});
 
 const LOGIN_USER_SCHEMA = Joi.object().keys({
     userName: Joi.string().min(3).required(),
@@ -90,7 +94,7 @@ function transformData(data) {
 }
 
 function transformUserData(data) {
-    
+
     return _.map(data, item => ({
         id: item._id,
         userName: item.userName,
@@ -130,6 +134,7 @@ export {
     UPDATE_COLLEGE_SCHEMA,
     VALIDATE_ID_SCHEMA,
     VALIDATE_IDS_SCHEMA,
+    VALIDATE_OTP_SCHEMA,
     LOGIN_USER_SCHEMA,
     REGISTER_USER_SCHEMA,
     EMAIL_INPUT_SCHEMA,

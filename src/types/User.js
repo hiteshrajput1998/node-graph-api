@@ -40,5 +40,6 @@ export default gql`
     type Query{
         getUsers: [User]
         getUser(id: String!): User
+        verifyOTP(otp: String!, email: String!): String
     }
 `;

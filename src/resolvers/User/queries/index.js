@@ -1,7 +1,9 @@
 import getUsers from './getUsers';
 import getUser from './getUser';
+import verifyOTP from './verifyOTP';
 
-export default{
+export default{ 
     getUsers,
-    getUser
+    getUser,
+    verifyOTP
 };
