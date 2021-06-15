@@ -15,6 +15,7 @@ export default gql`
     }
     type Token{
         token: String
+        message: String
     }
     type Response{
         message: String
