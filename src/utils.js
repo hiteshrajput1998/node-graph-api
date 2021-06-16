@@ -30,7 +30,7 @@ const VALIDATE_IDS_SCHEMA = Joi.object().keys({
 
 const VALIDATE_OTP_SCHEMA = Joi.object().keys({
     otp: Joi.string().length(6).pattern(/^[0-9]+$/).required(),
-    email: Joi.string().required()
+    userName: Joi.string().min(3).required()
 });
 
 const LOGIN_USER_SCHEMA = Joi.object().keys({
