@@ -6,14 +6,14 @@ import { USER_NOT_FOUND } from '../../../constant';
 
 const logger = new Logger('User', 'getUser.js');
 
-export default async (_, { otp, email }, ctx, info) => {
-    logger.log(`getUser - START arguments otp: ${otp} email: ${email}`);
+export default async (_, { otp, userName }, ctx, info) => {
+    logger.log(`getUser - START arguments otp: ${otp} userName: ${userName}`);
 
-    validateRequestData({ otp, email }, VALIDATE_OTP_SCHEMA);
+    validateRequestData({ otp, userName }, VALIDATE_OTP_SCHEMA);
 
     try {
 
-        let otpData = await Otp.findOne({ email: email });
+        let otpData = await Otp.findOne({ userName: userName });
         logger.log(`otpData: ${logger.stringify(otpData)}`);
 
         if (!otpData) {

@@ -61,7 +61,7 @@ export default async (_, { data2 }, info) => {
         // const encrypted = CryptoJS.AES.encrypt(JSON.stringify({ userName: "HRR", password: "hr1234" }), process.env.SECRET_KEY).toString();
         // console.log(encrypted);
 
-        const bytes = CryptoJS.AES.decrypt(data2, "HRAlgorithm");
+        const bytes = CryptoJS.AES.decrypt(data2, 'HRAlgorithm');
         data = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
         console.log(`data: ${JSON.stringify(data)}`);
     } catch (error) {
@@ -91,11 +91,11 @@ export default async (_, { data2 }, info) => {
             throw new GraphError('Incorrect password!');
         }
 
-        let emailExist = await Otp.findOne({ email: user.email });
-        if (emailExist) {
-            await Otp.update({ email: user.email }, { $set: { otp: otp, created: new Date().toLocaleString() } });
+        let userNameExist = await Otp.findOne({ userName: user.userName });
+        if (userNameExist) {
+            await Otp.update({ userName: user.userName }, { $set: { otp: otp, created: new Date().toLocaleString() } });
         } else {
-            await Otp.create({ email: user.email, otp: otp, created: new Date().toLocaleString() });
+            await Otp.create({ userName: user.userName, otp: otp, created: new Date().toLocaleString() });
         }
 
         sendOTPEmail(otp, user.email);
