@@ -14,13 +14,18 @@ export default async (parent, context, ctx, info) => {
 
     try {
 
-        let response = await College.find();
-        logger.log(`response: ${logger.stringify(response)}`);
-        logger2.info(`response: ${logger.stringify(response)}`);
+        let startTime =Date.now();
+        logger.log(`startTime: ${ Math.round(startTime)}`);
+        let response = await College.find().sort({collegeName: 1, address: -1});
+        let endTime = Date.now();
+        logger.log(`endTime: ${Math.round(endTime)}`);
+        logger.log(`time to get in millisec: ${endTime - startTime}`);
+        // logger.log(`response: ${logger.stringify(response)}`);
+        // logger2.info(`response: ${logger.stringify(response)}`);
 
         let finalResponse = transformData(response);
-        logger.log(`finalResponse: ${logger.stringify(finalResponse)}`);
-        logger2.info(`finalResponse: ${logger.stringify(finalResponse)}`);
+        // logger.log(`finalResponse: ${logger.stringify(finalResponse)}`);
+        // logger2.info(`finalResponse: ${logger.stringify(finalResponse)}`);
 
         return finalResponse;
     } catch (error) {

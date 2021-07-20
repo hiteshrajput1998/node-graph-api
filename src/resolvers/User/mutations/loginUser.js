@@ -14,7 +14,7 @@ const sendOTPEmail = (otp, email) => {
         service: 'gmail',
         auth: {
             user: 'hitesh1998.student@gmail.com',
-            pass: '****',
+            pass: '',
         },
     });
 
@@ -37,17 +37,24 @@ const sendOTPEmail = (otp, email) => {
     };
 
     // eslint-disable-next-line no-undef
-    return new Promise((resolve, reject) => {
-        transporter.sendMail(mailOptions, (err, info) => {
-            if (err) {
-                reject({ err: err });
-            }
+    // return new Promise((resolve, reject) => {
+    //     transporter.sendMail(mailOptions, (err, info) => {
+    //         if (err) {
+    //             reject({ err: err });
+    //         }
 
-            logger.log(`+email response: ${logger.stringify(info.response)}`);
+    //         logger.log(`+email response: ${logger.stringify(info)}`);
 
-            resolve();
+    //         resolve();
+    //     });
+    // });
+    transporter.sendMail(mailOptions)
+        .then(res => {
+            console.log(res);
+        })
+        .catch(err => {
+            console.log(err);
         });
-    });
 };
 
 export default async (_, { data2 }, info) => {

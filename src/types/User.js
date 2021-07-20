@@ -36,6 +36,7 @@ export default gql`
         loginUser(data2: String!): Token
         registerUser(inputRegister: RegisterInput): Response
         sendEmail(input: EmailInput!): EmailResponse
+        sendOtpToEmail(email: String!): Boolean
     }
     type Query{
         getUsers: [User]
