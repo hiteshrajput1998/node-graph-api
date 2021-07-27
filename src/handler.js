@@ -19,9 +19,10 @@ const server = new ApolloServer({
     schema,
     context: ({ req, res }) => {
         //authScope: req.headers.authorization,
-        res.header('Strict-Transport-Security', 'max-age=10368000; includeSubDomains')  // 120days
+        res.header('Strict-Transport-Security', 'max-age=10368000; includeSubDomains'); // 120days
     },
-    //plugins: [responseCachePlugin()],
+    cacheControl: true,
+    plugins: [responseCachePlugin({ defaultMaxAge: 5 })],
     formatError: function (err) {
         console.log(`err.message: ${JSON.stringify(err)}`);
         return err;

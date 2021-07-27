@@ -6,6 +6,7 @@ const collegeField = `
 `;
 
 export default gql`
+
     type College{
         id: String
         ${collegeField}
