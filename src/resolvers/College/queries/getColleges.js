@@ -14,13 +14,15 @@ export default async (parent, context, ctx, info) => {
 
     try {
 
-        let startTime =Date.now();
-        logger.log(`startTime: ${ Math.round(startTime)}`);
-        let response = await College.find().sort({collegeName: 1, address: -1});
+        let startTime = Date.now();
+        logger.log(`startTime: ${Math.round(startTime)}`);
+
+        let response = await College.find().sort({ collegeName: 1, address: -1 });
+
         let endTime = Date.now();
         logger.log(`endTime: ${Math.round(endTime)}`);
         logger.log(`time to get in millisec: ${endTime - startTime}`);
-        // logger.log(`response: ${logger.stringify(response)}`);
+        logger.log(`response: ${logger.stringify(response)}`);
         // logger2.info(`response: ${logger.stringify(response)}`);
 
         let finalResponse = transformData(response);
