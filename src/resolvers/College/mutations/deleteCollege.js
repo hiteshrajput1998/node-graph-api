@@ -23,8 +23,7 @@ export default async (_, { id }) => {
         logger.log(`+deleteCollege: ${logger.stringify(deleteCollege)}`);
 
         return {
-            message: DELETED_SUCCESSFULLY,
-            data: deleteCollege
+            message: DELETED_SUCCESSFULLY
         };
 
     } catch (error) {
