@@ -3,9 +3,10 @@ import { GraphQLModule } from '@graphql-modules/core';
 import { collegeModule } from './modules/collegeModule';
 import { userModule } from './modules/userModule';
 import { imageModule } from './modules/imageModule';
+import { newsModule } from './modules/newsModule';
 
 const application = new GraphQLModule({
-    imports: [collegeModule, userModule, imageModule]
+    imports: [collegeModule, userModule, imageModule, newsModule]
 });
 
 export const mySchema = application;
