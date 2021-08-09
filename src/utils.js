@@ -3,6 +3,7 @@ import Joi from 'joi-oid';
 //const Joi = require('joi-oid')
 import Logger from './logger';
 import _ from 'lodash';
+import request from 'request';
 
 const logger = new Logger('College', 'utils.js');
 
@@ -129,6 +130,25 @@ function maskOption(option) {
     return opt;
 }
 
+async function getNewsInfoFromUrl(url) {
+    // eslint-disable-next-line no-undef
+    return new Promise(function (resolve, reject) {
+        request(url,
+            function (error, response, body) {
+                console.log(response);
+                
+                if (!error && response.statusCode === 200) {
+                    response = JSON.parse(body);
+                    resolve(response);
+                }
+                else {
+                    console.log(`${response.statusCode} ${response.body}`);
+                    reject(response);
+                }
+            });
+    });
+}
+
 export {
     CREATE_COLLEGE_SCHEMA,
     UPDATE_COLLEGE_SCHEMA,
@@ -141,5 +161,6 @@ export {
     validateRequestData,
     transformData,
     transformUserData,
-    maskOption
+    maskOption,
+    getNewsInfoFromUrl
 };
