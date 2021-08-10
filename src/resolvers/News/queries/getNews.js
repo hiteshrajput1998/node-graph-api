@@ -23,7 +23,7 @@ export default async (_parent, { country, lang }, _ctx, _info) => {
             cache.set(url, response);
         }
 
-        logger.info(logger.stringify(response));
+        logger.info(`final response: ${logger.stringify(response)}`);
 
         return response;
     } catch (error) {
