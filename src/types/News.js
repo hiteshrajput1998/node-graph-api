@@ -27,6 +27,6 @@ export default gql`
         articles: [News]
     }
     type Query{
-        getNews: NewsDetails
+        getNews(country: String, lang: String): NewsDetails
     }
 `;
