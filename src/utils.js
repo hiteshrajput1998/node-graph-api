@@ -56,6 +56,11 @@ const EMAIL_INPUT_SCHEMA = Joi.object().keys({
     userName: Joi.string().min(1).max(20).required()
 });
 
+/**
+ * 
+ * @param {object} model 
+ * @param {object} schema 
+ */
 function validateRequestData(model, schema) {
 
     const validateResult = schema.validate(model, { abortEarly: false });
@@ -84,6 +89,10 @@ function buildClientError(errDetails = []) {
     return error;
 }
 
+/**
+ * 
+ * @param {object} data 
+ */
 function transformData(data) {
 
     return _.map(data, item => ({
@@ -94,6 +103,10 @@ function transformData(data) {
     );
 }
 
+/**
+ * 
+ * @param {object} data / userdata
+ */
 function transformUserData(data) {
 
     return _.map(data, item => ({
@@ -107,6 +120,10 @@ function transformUserData(data) {
     );
 }
 
+/**
+ * 
+ * @param {string} option / key
+ */
 function maskOption(option) {
 
     let opt = {};
@@ -130,6 +147,10 @@ function maskOption(option) {
     return opt;
 }
 
+/**
+ * 
+ * @param {string} url  / contain url of news
+ */
 async function getNewsInfoFromUrl(url) {
     // eslint-disable-next-line no-undef
     return new Promise(function (resolve, reject) {
