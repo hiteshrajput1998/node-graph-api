@@ -1,95 +1,49 @@
 /* eslint-disable no-undef */
 // /* eslint-disable no-undef */
-// const path = require('path');
+
+
+// const nodeExternals = require('webpack-node-externals');
+// const serverlessWebpack = require('serverless-webpack');
 
 // module.exports = {
-//     entry: './src/handler.js',
-//     target: 'node',
-//     module: {
-//         rules: [
-//             {
-//                 test: /\.js$/,
-//                 exclude: [
-//                     // Use an object instead of a string
-//                     {
-//                         test: path.resolve(__dirname, 'node_modules'),
-//                         // Exclude the following from the exclusion
-//                         exclude: path.resolve(__dirname, 'node_modules/.')
-//                     }
-//                 ],
-//                 use: {
-//                     loader: 'babel-loader',
-//                     // ...
-//                 },
-//             },
-//         ],
-//     },
-//     output: {
-//         filename: 'bundle.js',
-//         // eslint-disable-next-line no-undef
-//         path: path.resolve(__dirname, 'dist'),
-//     },
-// };
-
-
-
-// const path = require('path');
-// const webpack = require('webpack');
-
-// module.exports = {
-//     entry: './src/handler.js',
-//     target: 'node',
+//     entry: serverlessWebpack.lib.entries,
 //     mode: 'development',
-//     optimization: {
-//         minimize: false,
-//     },
-//     performance: {
-//         hints: false,
-//     },
-//     // devtool: 'source-map',
 //     module: {
 //         rules: [
 //             {
-//                 test: /\.js$/,
 //                 exclude: /node_modules/,
+//                 test: /\test.js$/,
 //                 use: 'babel-loader',
 //             },
 //         ],
 //     },
-//     output: {
-//         libraryTarget: 'commonjs',
-//         path: path.join(__dirname, 'dist'),
-//         filename: '[name].js',
+//     node: false,
+//     externals: [nodeExternals()],
+//     optimization: {
+//         minimize: false,
 //     },
-//     devtool: 'source-map',
-//     plugins: [
-//         new webpack.DefinePlugin({ 'global.GENTLY': false }), // This is because I use `superagent`,
-//     ],
+//     resolve: {
+//         extensions: ['.js'],
+//     },
+//     target: 'node',
 // };
 
-
-const nodeExternals = require('webpack-node-externals');
-const serverlessWebpack = require('serverless-webpack');
+const path = require('path');
 
 module.exports = {
-    entry: serverlessWebpack.lib.entries,
-    mode: 'development',
+    entry: './src/handler.js',
+    mode: 'production',
     module: {
         rules: [
             {
                 exclude: /node_modules/,
-                test: /\test.js$/,
-                use: 'babel-loader',
+                test: /\test.js$/
             },
         ],
     },
-    node: false,
-    externals: [nodeExternals()],
-    optimization: {
-        minimize: false,
-    },
-    resolve: {
-        extensions: ['.js'],
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'api.bundle.js'
     },
     target: 'node',
 };
