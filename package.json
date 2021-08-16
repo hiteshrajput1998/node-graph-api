@@ -13,7 +13,7 @@
     "webpack": "webpack"
   },
   "scriptsComments": {
-    "build": "webpack --config ./webpack.config.js" 
+    "build": "webpack --config ./webpack.config.js"
   },
   "keywords": [],
   "author": "",

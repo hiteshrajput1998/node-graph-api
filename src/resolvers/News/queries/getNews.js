@@ -4,7 +4,7 @@ import GraphError from '../../../graphError';
 import Logger from '../../../logger';
 import { getNewsInfoFromUrl } from '../../../utils';
 
-const logger = new Logger('News', 'getNews.json');
+const logger = new Logger('News', 'getNews.js');
 
 const cache = new NodeCache({ stdTTL: 5000 });
 
