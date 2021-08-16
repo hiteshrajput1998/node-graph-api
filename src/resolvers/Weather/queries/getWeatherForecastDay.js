@@ -2,25 +2,28 @@
 import NodeCache from 'node-cache';
 import GraphError from '../../../graphError';
 import Logger from '../../../logger';
-import { getNewsInfoFromUrl } from '../../../utils';
+import { getWeatherForecastFromUrl, transformWeatherData } from '../../../utils';
 
-const logger = new Logger('News', 'getNews.js');
+const logger = new Logger('Weather', 'getWeatherForecastDay.js');
 
 const cache = new NodeCache({ stdTTL: 5000 });
 
-export default async (_parent, { country, lang }, _ctx, _info) => {
+export default async (_parent, { cityName, days }, _ctx, _info) => {
     logger.info('Started getNews');
     let response;
 
     try {
-        let url = `https://gnews.io/api/v4/top-headlines?token=691b7111b0bf68e5f45a73950c86a3b0&country=${country}&lang=${lang}`;
+        let url = `http://api.weatherapi.com/v1/forecast.json?key=b88fc770fc604ca18b0112250211308&q=${cityName}&days=${days}&aqi=no&alerts=no`;
 
         if (cache.has(url)) {
             response = cache.get(url);
+            response = await transformWeatherData(response);
         }
         else {
-            response = await getNewsInfoFromUrl(url);
+            response = await getWeatherForecastFromUrl(url);
             cache.set(url, response);
+
+            response = await transformWeatherData(response);
         }
 
         logger.info(`final response of getNews: ${logger.stringify(response)}`);

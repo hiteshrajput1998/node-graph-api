@@ -149,6 +149,78 @@ function maskOption(option) {
 
 /**
  * 
+ * @param {Object} objVal 
+ * @param {Array} keys // contain keys which used pick data from object
+ */
+function getValueFromResultByKeys(objVal, keys) {
+    let result = {};
+
+
+    // eslint-disable-next-line no-prototype-builtins
+    if (objVal.hasOwnProperty('condition')) {
+        result['icon'] = objVal.condition.icon;
+    }
+
+    result = { ..._.pick(_.cloneDeep(objVal), keys), ...result };
+
+    return result;
+}
+
+/**
+ * 
+ * @param {Object} data // weather-api response
+ */
+
+async function transformWeatherData(data) {
+    let res = Object.keys(data);
+    let collection = {};
+    let hourlyData = [];
+    let keys = [
+        {
+            current: ['last_updated', 'temp_c', 'temp_f', 'wind_mph', 'wind_kph']
+        },
+        {
+            forecast: ['date', 'day', 'astro', 'hour']
+        },
+        {
+            day: ['maxtemp_c', 'maxtemp_f', 'mintemp_c', 'mintemp_f', 'avgtemp_c']
+        },
+        {
+            astro: ['sunrise', 'sunset', 'moonrise', 'moonset']
+        },
+        {
+            hour: ['time', 'temp_c', 'temp_f', 'wind_mph', 'wind_kph', 'wind_degree']
+        }
+    ];
+
+    res.forEach((item, key) => {
+        if (item === 'location') {
+            collection['location'] = data[item];
+        }
+        if (item === 'current') {
+            collection['current'] = getValueFromResultByKeys(data[item], keys[0].current);
+        }
+        if (item === 'forecast') {
+            let forecastData = getValueFromResultByKeys(data[item].forecastday[0], keys[1].forecast);
+            collection['forecastDay'] = {};
+
+            collection['forecastDay']['date'] = forecastData.date;
+            collection['forecastDay']['dayInfo'] = getValueFromResultByKeys(forecastData['day'], keys[2].day);
+            collection['forecastDay']['astroInfo'] = getValueFromResultByKeys(forecastData['astro'], keys[3].astro);
+
+            forecastData['hour'].map(item => {
+                hourlyData.push(getValueFromResultByKeys(item, keys[4].hour));
+            });
+
+            collection['forecastDay']['hourlyData'] = hourlyData;
+        }
+    });
+
+    return collection;
+}
+
+/**
+ * 
  * @param {string} url  / contain url of news
  */
 async function getNewsInfoFromUrl(url) {
@@ -157,7 +229,30 @@ async function getNewsInfoFromUrl(url) {
         request(url,
             function (error, response, body) {
                 console.log(response);
-                
+
+                if (!error && response.statusCode === 200) {
+                    response = JSON.parse(body);
+                    resolve(response);
+                }
+                else {
+                    console.log(`${response.statusCode} ${response.body}`);
+                    reject(response);
+                }
+            });
+    });
+}
+
+
+/**
+ * 
+ * @param {string} url  / contain url of weather
+ */
+async function getWeatherForecastFromUrl(url) {
+    // eslint-disable-next-line no-undef
+    return new Promise(function (resolve, reject) {
+        request(url,
+            function (error, response, body) {
+
                 if (!error && response.statusCode === 200) {
                     response = JSON.parse(body);
                     resolve(response);
@@ -183,5 +278,7 @@ export {
     transformData,
     transformUserData,
     maskOption,
-    getNewsInfoFromUrl
+    getNewsInfoFromUrl,
+    getWeatherForecastFromUrl,
+    transformWeatherData
 };
