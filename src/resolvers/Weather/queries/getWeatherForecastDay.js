@@ -9,7 +9,7 @@ const logger = new Logger('Weather', 'getWeatherForecastDay.js');
 const cache = new NodeCache({ stdTTL: 5000 });
 
 export default async (_parent, { cityName, days }, _ctx, _info) => {
-    logger.info('Started getNews');
+    logger.info('Started getWeather');
     let response;
 
     try {
@@ -26,7 +26,7 @@ export default async (_parent, { cityName, days }, _ctx, _info) => {
             response = await transformWeatherData(response);
         }
 
-        logger.info(`final response of getNews: ${logger.stringify(response)}`);
+        logger.info(`final response of getWeather: ${logger.stringify(response)}`);
 
         return response;
     } catch (error) {
