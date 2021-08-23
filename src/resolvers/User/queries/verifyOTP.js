@@ -26,6 +26,6 @@ export default async (_, { otp, userName }, ctx, info) => {
 
         return 'Otp matched';
     } catch (error) {
-        throw new GraphError(error);
+        throw new GraphError(error.message);
     }
 };
